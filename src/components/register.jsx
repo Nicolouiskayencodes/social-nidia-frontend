@@ -51,7 +51,7 @@ export default function Register () {
           <label htmlFor="username">Username: </label><input type="text" id="username" ref={username}></input><br></br>
           <label htmlFor="password">Password: </label><input type="password" id="password" ref={password}></input><br></br>
           <label htmlFor="confirm-password">Confirm Password: </label><input type="password" id="-confirmpassword" ref={confirmPassword}></input><br></br>
-          <button onClick={submitRegister}>Login</button>
+          <button onClick={submitRegister}>Register</button>
         </form>
       </div>
       <p>Here by accident? <Link to={'/'}>Back to Login</Link></p>
