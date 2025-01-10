@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import Post from "./post";
+import PropTypes from "prop-types";
 
-export default function Posts(){
+export default function Posts({user}){
   const [posts, setPosts] = useState(null);
   useEffect(()=>{
       fetch('http://localhost:3000/post', {
-        mode: "cors",
+      mode: "cors",
       method: "GET",
       headers: { "Content-Type": "application/json",
       "Authorization": localStorage.getItem("Authorization")},
@@ -23,8 +24,12 @@ export default function Posts(){
   return(
     <div>
       {posts && <>
-        {posts.map(post => <Post key={post.id} post={post}/>)}
+        {posts.map(post => <Post key={post.id} post={post} user={user}/>)}
       </>}
     </div>
   )
+}
+
+Posts.propTypes = {
+  user: PropTypes.object
 }
