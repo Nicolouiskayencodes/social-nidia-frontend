@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Post from "./post";
 
 export default function Profile() {
   const [user, setUser] = useState(null)
@@ -20,6 +21,14 @@ export default function Profile() {
       })
     }, [setUser])
   return(
-    <div>Profile</div>
+    <div>{user && <>
+      <img src={user.avatar}></img>
+      <h1>{user.firstName} {user.lastName}</h1>
+      <h2>{user.username}</h2>
+      <p>{user.bio}</p>
+      {user.posts.map(post => <div key={post.id}>{!post.groupId && <Post post={post}/>}
+        </div>)}
+    </>}
+    </div>
   )
 }

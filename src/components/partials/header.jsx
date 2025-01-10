@@ -46,6 +46,7 @@ export default function Header() {
       <div>Nidia</div>
       <nav>
         {(user && (user.receivedRequests.length > 0)) && <Link to={"/requests"}>Requests {user.receivedRequests.length}</Link>}
+        <Link to={"/home"}>Home</Link>
         <Link to={"/messages"}>Messages {(unread > 0) && <span>({unread})</span>}</Link>
         <button onClick={openUserList}>{user && <img src={user.avatar}></img>}</button> 
         {userState && <div>
