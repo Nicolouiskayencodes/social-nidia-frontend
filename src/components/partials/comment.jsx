@@ -46,7 +46,7 @@ export default function Comment({comment, user}) {
   return(
     <div>
       <p>{comment.content}</p>
-      <p>{Date(comment.createdAt)}</p>
+      <p>{new Date(comment.createdAt).toLocaleString()}</p>
       <p>{comment.author.firstName} {comment.author.lastName}</p>
       {comment.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
         {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{comment.likes.map(like => <div key={comment.likes.indexOf(like)}>{like.firstName} {like.lastName}</div>)}</>) : (<button onClick={()=>setLikes(true)}>{comment.likes.length} likes</button>)}

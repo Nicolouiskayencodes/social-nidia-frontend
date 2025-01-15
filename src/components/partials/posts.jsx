@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Post from "./post";
 import PropTypes from "prop-types";
 
 export default function Posts({user}){
   const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(false)
+  const postContent = useRef(null)
+  const photo = useRef(null);
   useEffect(()=>{
       fetch('http://localhost:3000/post', {
       mode: "cors",
@@ -21,8 +24,42 @@ export default function Posts({user}){
         setPosts(response)
       })
     }, [setPosts])
+    function createPost() {
+      if (!loading){
+      setLoading(true)
+      const formData = new FormData()
+      if (photo.current.files[0]){ 
+        formData.append('file', photo.current.files[0])
+      }
+      if (postContent.current.value) { 
+        formData.append('content', postContent.current.value)
+      }
+      if (photo.current.files[0] ||postContent.current.value ){
+      fetch('http://localhost:3000/post', {
+        mode: "cors",
+        method: "POST",
+        headers: {
+        "Authorization": localStorage.getItem("Authorization")},
+        body: formData
+        })
+        .then(response => {
+          setLoading(false)
+          if (response.status === 200) {
+          postContent.current.value = null;
+          photo.current.value = null;
+          }
+        })
+      }
+    }
+    }
   return(
     <div>
+      <form>
+        <label htmlFor="post-content">What&apos;s on your mind?</label>
+        <input type="file" ref={photo} name="picture"></input>
+        <input type="text" ref={postContent} id="post-content"></input>
+        <button onClick={createPost}>Post</button>
+      </form>
       {posts && <>
         {posts.map(post => <Post key={post.id} post={post} user={user}/>)}
       </>}

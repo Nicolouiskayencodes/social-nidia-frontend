@@ -23,8 +23,8 @@ export default function Post({post, user}) {
           }
       )
       .then(response => {
+        setLoading(false)
         if (response.status === 200) {
-          setLoading(false)
           newComment.current.value = ''
         }
       })
@@ -80,23 +80,22 @@ export default function Post({post, user}) {
       {(user && post) && <>
         <img src={post.image}></img>
         <p>{post.content}</p>
-        <p>{Date(post.createdAt)}</p>
+        <p>{new Date(post.createdAt).toLocaleString()}</p>
         <p>{post.author.firstName} {post.author.lastName}</p>
         {post.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
         {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{post.likes.map(like => <div key={post.likes.indexOf(like)}>{like.firstName} {like.lastName}</div>)}</>) : (<button onClick={()=>setLikes(true)}>{post.likes.length} likes</button>)}
         <div>
-          <h3>Comments</h3>
           {comments ? (<>
             <button onClick={()=>setComments(false)}>Hide comments</button>
             {post.comments.map(comment => <Comment key={comment.id} comment={comment} user={user}/>)}
-          </>) : (
-            <button onClick={()=>setComments(true)}>{post.comments.length} Comments</button>
-          )}
-          <form>
+            <form>
             <label htmlFor="comment">Leave a comment:</label>
             <input type="text" ref={newComment}></input>
             <button onClick={submitComment}>Post comment</button>
           </form>
+          </>) : (
+            <button onClick={()=>setComments(true)}>{post.comments.length} Comments</button>
+          )}
         </div>
         </>}
     </div>
