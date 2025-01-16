@@ -11,7 +11,9 @@ export default function Header({user}) {
       let unread = 0
       user.conversations.forEach(conversation => {
         if (conversation.readBy.some(person => person.id === user.id)) {
-          unread = unread +1;
+          unread = unread + 0;
+        } else {
+          unread = unread + 1;
         }
       })
       setUnread(unread)

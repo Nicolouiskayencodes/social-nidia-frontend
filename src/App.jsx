@@ -5,6 +5,8 @@ import Posts from './components/partials/posts'
 import Profile from './components/partials/profile'
 import './App.css'
 import Conversations from './components/partials/conversations'
+import NewConv from './components/partials/newconv'
+import Conversation from './components/partials/conversation'
 
 function App() {
   const {page, elementid} = useParams();
@@ -28,7 +30,7 @@ function App() {
     .then(response =>{
       setUser(response)
     })
-  })
+  }, [navigate])
 
   return (
     <>
@@ -41,8 +43,10 @@ function App() {
       ): page === 'conversations' ? ( 
         <Conversations user={user}/> 
       ) : page === 'newconv' ? (
-        <NewCon />
-      ) : 
+        <NewConv />
+      ) : page === 'conversation' ? (
+        <Conversation user={user} conversationId={elementid} />
+      ) :
       (<><div>Page not found</div></>)}
     </>
   )
