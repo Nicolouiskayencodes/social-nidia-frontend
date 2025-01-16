@@ -1,32 +1,74 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Post from "./post";
 
 export default function Profile() {
   const [user, setUser] = useState(null)
-    useEffect(()=>{
-      fetch('http://localhost:3000/user', {
-        mode: "cors",
-      method: "GET",
-      headers: { "Content-Type": "application/json",
+  const [loading, setLoading] = useState(false)
+  const [reload, setReload] = useState(false);
+  const postContent = useRef(null)
+  const photo = useRef(null);
+  useEffect(()=>{
+    setReload(false)
+    fetch('http://localhost:3000/user', {
+      mode: "cors",
+    method: "GET",
+    headers: { "Content-Type": "application/json",
+    "Authorization": localStorage.getItem("Authorization")},
+    })
+    .then(response => {
+      if (response.status === 200) {
+      return response.json();
+      }
+    })
+    .then(response => {
+      console.log(response)
+      setUser(response)
+    })
+  }, [setUser, reload])
+  function createPost() {
+    if (!loading){
+    setLoading(true)
+    const formData = new FormData()
+    if (photo.current.files[0]){ 
+      formData.append('file', photo.current.files[0])
+    }
+    if (postContent.current.value) { 
+      formData.append('content', postContent.current.value)
+    }
+    if (photo.current.files[0] ||postContent.current.value ){
+    fetch('http://localhost:3000/post', {
+      mode: "cors",
+      method: "POST",
+      headers: {
       "Authorization": localStorage.getItem("Authorization")},
+      body: formData
       })
       .then(response => {
+        setLoading(false)
         if (response.status === 200) {
-        return response.json();
+        postContent.current.value = null;
+        photo.current.value = null;
         }
       })
-      .then(response => {
-        console.log(response)
-        setUser(response)
-      })
-    }, [setUser])
+    }
+  }
+  }
+  function childReload(){
+    setReload(true)
+  }
   return(
     <div>{user && <>
       <img src={user.avatar}></img>
       <h1>{user.firstName} {user.lastName}</h1>
       <h2>{user.username}</h2>
       <p>{user.bio}</p>
-      {user.posts.map(post => <div key={post.id}>{!post.groupId && <Post post={post}/>}
+      <form>
+        <label htmlFor="post-content">What&apos;s on your mind?</label>
+        <input type="file" ref={photo} name="picture"></input>
+        <input type="text" ref={postContent} id="post-content"></input>
+        <button onClick={createPost}>Post</button>
+      </form>
+      {user.posts.map(post => <div key={post.id}>{!post.groupId && <Post post={post} user={user} reload={childReload}/>}
         </div>)}
     </>}
     </div>

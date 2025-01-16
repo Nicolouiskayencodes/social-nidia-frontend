@@ -4,6 +4,7 @@ import Header from './components/partials/header'
 import Posts from './components/partials/posts'
 import Profile from './components/partials/profile'
 import './App.css'
+import Conversations from './components/partials/conversations'
 
 function App() {
   const {page, elementid} = useParams();
@@ -31,13 +32,18 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header user={user}/>
       {page === 'home' ? (
         <Posts user={user}/>
       )
       : page === 'profile' ? (
         <Profile />
-      ): (<><div>Page not found</div></>)}
+      ): page === 'conversations' ? ( 
+        <Conversations user={user}/> 
+      ) : page === 'newconv' ? (
+        <NewCon />
+      ) : 
+      (<><div>Page not found</div></>)}
     </>
   )
 }
