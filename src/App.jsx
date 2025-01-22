@@ -10,6 +10,7 @@ import Conversation from './components/partials/conversation'
 import Friends from './components/partials/friends'
 import Users from './components/partials/users'
 import User from './components/partials/user'
+import Requests from './components/partials/requests'
 
 function App() {
   const {page, elementid} = useParams();
@@ -59,6 +60,8 @@ function App() {
         <Users me={user} reload={childReload}/>
       ) : page === 'user' ? (
         <User id={elementid} me={user} reload={childReload}/>
+      ) : page === 'requests' ?(
+        <Requests user={user} reload={childReload}/>
       ) :
       (<><div>Page not found</div></>)}
       <Friends user={user} />

@@ -47,10 +47,7 @@ export default function NewConv({toUser, me}){
       } else {
         setUsers(response)
         response.forEach(person => {
-          console.log(person.id)
-          console.log(toUser)
           if (person.id === parseInt(toUser)){
-            console.log(person.id)
             setRecipients([person])
             startConversation()
           }

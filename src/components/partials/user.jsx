@@ -33,7 +33,6 @@ export default function User({id, me, reload}) {
     .then(response => {return response.json()} )
     .then(response=> {
       console.log(response)
-      me.sentRequests.push(response)
       reload()
     })
   }
@@ -49,8 +48,6 @@ export default function User({id, me, reload}) {
     .then(response => {return response.json()} )
     .then(response=> {
       console.log(response)
-      me.following.filter(followed => (followed.id !== parseInt(id)))
-      me.sentRequests.filter(followed => (followed.id !== parseInt(id)))
       reload()
     })
   }
