@@ -64,6 +64,6 @@ export default function Conversation({conversationId, user}) {
 }
 
 Conversation.propTypes = {
-  conversationId: PropTypes.number,
+  conversationId: PropTypes.string,
   user: PropTypes.object
 }

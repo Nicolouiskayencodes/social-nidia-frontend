@@ -7,12 +7,17 @@ import './App.css'
 import Conversations from './components/partials/conversations'
 import NewConv from './components/partials/newconv'
 import Conversation from './components/partials/conversation'
+import Friends from './components/partials/friends'
+import Users from './components/partials/users'
+import User from './components/partials/user'
 
 function App() {
   const {page, elementid} = useParams();
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
+  const [reload, setReload] = useState(false)
   useEffect(()=>{
+    setReload(false)
     fetch('http://localhost:3000/user', {
       mode: "cors",
     method: "GET",
@@ -30,7 +35,11 @@ function App() {
     .then(response =>{
       setUser(response)
     })
-  }, [navigate])
+  }, [navigate, reload])
+
+  const childReload = () => {
+    setReload(true)
+  }
 
   return (
     <>
@@ -43,11 +52,16 @@ function App() {
       ): page === 'conversations' ? ( 
         <Conversations user={user}/> 
       ) : page === 'newconv' ? (
-        <NewConv />
+        <NewConv me={user} toUser={elementid}/>
       ) : page === 'conversation' ? (
         <Conversation user={user} conversationId={elementid} />
+      ) : page === 'users' ? (
+        <Users me={user} reload={childReload}/>
+      ) : page === 'user' ? (
+        <User id={elementid} me={user} reload={childReload}/>
       ) :
       (<><div>Page not found</div></>)}
+      <Friends user={user} />
     </>
   )
 }
