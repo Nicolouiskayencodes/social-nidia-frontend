@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import Comment from "./comment"
 import { useRef, useState } from "react"
 
-export default function Post({post, user, reload}) {
+export default function Post({post, user, reload, admin}) {
   const [comments, setComments] = useState(false)
   const [likes, setLikes] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -33,6 +33,7 @@ export default function Post({post, user, reload}) {
         }
       })
     }
+    reload()
   }
   function like() {
     setLoading(true)
@@ -140,8 +141,15 @@ export default function Post({post, user, reload}) {
             <button onClick={deletePost}>Yes, delete post</button>
           </>)}
         </>}
+        {(post.author.id !== user.id && admin) && <>
+          {(!deleting) ? (<><button onClick={()=>setDeleting(true)}>Delete post</button></>) :
+          (<><label>Are you sure you want to delete this post?</label>
+            <button onClick={()=>setDeleting(false)}>Cancel</button>
+            <button onClick={deletePost}>Yes, delete post</button>
+          </>)}
+        </>}
         {post.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
-        {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{post.likes.map(like => <div key={post.likes.indexOf(like)}>{like.firstName} {like.lastName}</div>)}</>) : (<button onClick={()=>setLikes(true)}>{post.likes.length} likes</button>)}
+        {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{post.likes.map(like => <div key={post.likes.indexOf(like)}>{like.firstName} {like.lastName} <em>{like.username}</em></div>)}</>) : (<button onClick={()=>setLikes(true)}>{post.likes.length} likes</button>)}
         <div>
           {comments ? (<>
             <button onClick={()=>setComments(false)}>Hide comments</button>
@@ -168,5 +176,6 @@ export default function Post({post, user, reload}) {
 Post.propTypes = {
   post: PropTypes.object,
   user: PropTypes.object,
-  reload: PropTypes.func
+  reload: PropTypes.func,
+  admin: PropTypes.bool
 }

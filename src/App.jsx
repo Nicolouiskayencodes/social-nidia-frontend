@@ -11,12 +11,17 @@ import Friends from './components/partials/friends'
 import Users from './components/partials/users'
 import User from './components/partials/user'
 import Requests from './components/partials/requests'
+import MyPages from './components/partials/mypages'
+import Pages from './components/partials/pages'
+import NewGroup from './components/partials/newgroup'
+import Page from './components/partials/page'
 
 function App() {
   const {page, elementid} = useParams();
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const [reload, setReload] = useState(false)
+  console.log(user)
   useEffect(()=>{
     setReload(false)
     fetch('http://localhost:3000/user', {
@@ -60,11 +65,18 @@ function App() {
         <Users me={user} reload={childReload}/>
       ) : page === 'user' ? (
         <User id={elementid} me={user} reload={childReload}/>
-      ) : page === 'requests' ?(
+      ) : page === 'requests' ? (
         <Requests user={user} reload={childReload}/>
+      ) : page === 'pages' ? (
+        <Pages />
+      ) : page === 'newgroup' ? (
+        <NewGroup />
+      ) : page === 'page' ? (
+        <Page id={elementid} user={user} />
       ) :
       (<><div>Page not found</div></>)}
-      <Friends user={user} />
+      {user && <Friends user={user} />}
+      {user && <MyPages pages={user.groups} />}
     </>
   )
 }
