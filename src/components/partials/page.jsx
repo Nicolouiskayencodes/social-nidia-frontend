@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import Post from "./post";
+import { Link } from "react-router-dom";
 
 export default function Page({id, user}) {
   const [page, setPage] = useState(null)
@@ -30,6 +31,8 @@ export default function Page({id, user}) {
       setPage(response)
       if (response.admins.some(person=> person.id === user.id)){
         setAdmin(true)
+      } else {
+        setAdmin(false)
       }
     }
     )}
@@ -103,6 +106,7 @@ export default function Page({id, user}) {
         })
         .then(response => {
           setLoading(false)
+          setReload(true)
           if (response.status === 200) {
           postContent.current.value = null;
           photo.current.value = null;
@@ -111,6 +115,66 @@ export default function Page({id, user}) {
       }
     }
     }
+  }
+  function leave() {
+    fetch(`http://localhost:3000/leave/${id}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("Authorization"),
+      },
+    }
+    )
+    .then(response => {return response.json()})
+    .then(response => {
+      console.log(response)
+      setReload(true)
+    })
+  }
+  function join() {
+    fetch(`http://localhost:3000/join/${id}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("Authorization"),
+      },
+    }
+    )
+    .then(response => {return response.json()})
+    .then(response => {
+      console.log(response)
+      setReload(true)
+    })
+  }
+  function makeAdmin(userid) {
+    fetch(`http://localhost:3000/admin/${id}/${userid}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("Authorization"),
+      },
+    }
+    )
+    .then(response => {return response.json()})
+    .then(response => {
+      console.log(response)
+      setReload(true)
+    })
+  }
+  function adminDelete(postid){
+    fetch(`http://localhost:3000/group/${page.id}/${postid}`, {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("Authorization"),
+      },
+    }
+    )
+    .then(response => {return response.json()})
+    .then(response => {
+      console.log(response)
+      setReload(true)
+    })
   }
   function childReload(){
     setReload(true)
@@ -121,7 +185,11 @@ export default function Page({id, user}) {
     <h1>{page.name}</h1>
     {page.banner && <img src={page.banner}></img>}
     <p>{page.bio}</p>
-    <div>{page.sidebar}</div>
+    {(page.members.some(member => member.id === user.id)) ? (
+      <button onClick={leave}>Leave group</button>
+    ) : (
+      <button onClick={join}>Join group</button>
+    )}
     {admin && <>
       {edit ? (<form>
         <label htmlFor="bio">Bio: </label>
@@ -141,7 +209,16 @@ export default function Page({id, user}) {
         <input type="text" ref={postContent} id="post-content"></input>
         <button onClick={post}>Post</button>
       </form>
-      {page.posts.map(post => <Post key={post.id} post={post} user={user} admin={admin} reload={childReload}/>)}
+      {page.posts.map(post => <div key={post.id}><Post key={post.id} post={post} user={user} reload={childReload}/>
+      {admin && <button onClick={()=>adminDelete(post.id)}>Delete Post</button>}</div>)}
+    <div>
+      <div>{page.sidebar}</div>
+      {page.members.map(member => <div key={member.id}> {member.id !== user.id && <>
+      <span>{(member.firstName || member.lastName) ? (<>{member.firstName} {member.lastName}</>):(<>{member.username}</>)}</span>
+      {(admin && !page.admins.some(person => person.id === member.id)) && <button onClick={()=>makeAdmin(member.id)}>Promote to admin</button>}
+      <Link to={`/user/${user.id}`}>Profile</Link>
+      </>}</div>)}
+    </div>
     </>}
   </div>)
 }
