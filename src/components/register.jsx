@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
+import styles from '../styles/register.module.css'
 
 export default function Register () {
   const username = useRef(null);
@@ -43,18 +44,20 @@ export default function Register () {
     }
   }
   return(
-    <div>
-      <div className="title-card"></div>
-      <div className="register">
+    <div className={styles.page}>
+       <div className={styles.leftside}>
+              <div className={styles.banner}><span className={styles.span1}>N</span><span className={styles.span2}>i</span><span className={styles.span3}>d</span><span className={styles.span4}>i</span><span className={styles.span5}>a</span></div>
+            </div>
+      <div className={styles.rightside}>
         {errors.map(error=><p key={errors.indexOf(error)}>{error}</p>)}
-        <form>
-          <label htmlFor="username">Username: </label><input type="text" id="username" ref={username}></input><br></br>
-          <label htmlFor="password">Password: </label><input type="password" id="password" ref={password}></input><br></br>
-          <label htmlFor="confirm-password">Confirm Password: </label><input type="password" id="-confirmpassword" ref={confirmPassword}></input><br></br>
+        <form className={styles.form}>
+          <div className={styles.field}><label htmlFor="username">Username: </label><input type="text" id="username" ref={username}></input></div>
+          <div className={styles.field}><label htmlFor="password">Password: </label><input type="password" id="password" ref={password}></input></div>
+          <div className={styles.field}><label htmlFor="confirm-password">Confirm Password: </label><input type="password" id="-confirmpassword" ref={confirmPassword}></input></div>
           <button onClick={submitRegister}>Register</button>
         </form>
+        <p className={styles.login}>Here by accident? <Link to={'/'}>Back to Login</Link></p>
       </div>
-      <p>Here by accident? <Link to={'/'}>Back to Login</Link></p>
     </div>
   )
 }

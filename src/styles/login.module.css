@@ -1,0 +1,79 @@
+.page {
+  display: flex;
+  width: 100vw;
+}
+.leftside{
+  background: no-repeat center/100% url(vite.svg);
+  background-size:cover;
+  height: 100vh;
+  width: 40%;
+  position: relative;
+}
+.rightside {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: darkgray;
+  width: 100%;
+  color: black;
+}
+.form {
+  padding: 5em;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 10px 10px gray;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field{
+  display: flex;
+  flex-direction: column;
+}
+
+.register{
+  padding: 5em;
+
+}
+.banner{
+  background: rgba(0, 0, 0, 0.5);
+  margin-top: 40%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.span1{
+  animation: 1s bounce infinite alternate;
+}
+.span2{
+  animation: 1s bounce infinite alternate;
+  animation-delay: 0.1s;
+}
+.span3{
+  animation: 1s bounce infinite alternate;
+  animation-delay: 0.2s;
+}
+.span4{
+  animation: 1s bounce infinite alternate;
+  animation-delay: 0.3s;
+}
+.span5{
+  animation: 1s bounce infinite alternate;
+  animation-delay: 0.4s;
+}
+@keyframes bounce {
+  from {
+    transform: translateY(0em);
+  }
+  25% {
+    transform: translateY(0em);
+  }
+  50% {
+    transform: translateY(0em);
+  }
+  to {
+    transform: translateY(-0.2em);
+  }
+}

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 import { useRef, useState } from "react"
+import { Link } from "react-router-dom";
 
 export default function Comment({comment, user, reload}) {
   const [likes, setLikes] = useState(false)
@@ -102,9 +103,9 @@ export default function Comment({comment, user, reload}) {
       {!updating ? (<>
       <p>{comment.content}</p>
       <p>{new Date(comment.createdAt).toLocaleString()}</p>
-      <p>{comment.author.firstName} {comment.author.lastName}</p>
+      <Link to={`/user/${comment.author.id}`}>{comment.author.firstName} {comment.author.lastName} <em>{comment.author.username}</em></Link>
       {comment.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
-        {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{comment.likes.map(like => <div key={comment.likes.indexOf(like)}>{like.firstName} {like.lastName} <em>{like.username}</em></div>)}</>) : (<button onClick={()=>setLikes(true)}>{comment.likes.length} likes</button>)}
+        {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{comment.likes.map(like => <Link to={`/user/${like.id}`} key={comment.likes.indexOf(like)}>{like.firstName} {like.lastName} <em>{like.username}</em></Link>)}</>) : (<button onClick={()=>setLikes(true)}>{comment.likes.length} likes</button>)}
         {comment.author.id === user.id && <>
           {(!deleting) ? (<><button onClick={()=>setUpdating(true)}>Update comment</button><button onClick={()=>setDeleting(true)}>Delete comment</button></>) :
           (<><label>Are you sure you want to delete your comment?</label>

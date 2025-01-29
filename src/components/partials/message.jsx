@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useRef } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Message({message, user, reload}) {
   const [edit, setEdit] = useState(false);
@@ -48,14 +49,14 @@ function Message({message, user, reload}) {
         </div>
       </div>
       ) : (
-        <div className="sent"><div className="message-content sent-content"><img src={message.image}/> <p>{message.content}</p></div><div className="sent-info"><div className="sent-user"><img className="avatar" src={message.author.avatar || '/avatar.svg'}/><p>{message.author.displayName || message.author.username}</p></div><div><p className="timestamp">{new Date(message.createdAt).toLocaleString()}</p></div>
+        <div className="sent"><div className="message-content sent-content"><img src={message.image}/> <p>{message.content}</p></div><div className="sent-info"><div className="sent-user"><img className="avatar" src={message.author.avatar || '/avatar.svg'}/><Link to={`/user/${message.author.id}`}>{message.author.firstName} {message.author.lastName}  <em>{message.author.username}</em></Link></div><div><p className="timestamp">{new Date(message.createdAt).toLocaleString()}</p></div>
       <div className="messageud">{(message.content !== null) && <button onClick={()=> setEdit(true)}>Edit</button>}
         {!loading && <button onClick={deleteComment}>Delete</button>}
         </div>
         </div>
       </div>
       )}
-    </>) : (<div className="received"><div className="message-content received-content"><img src={message.image}/><p>{message.content}</p></div><div className="received-info"><div className="received-user"><img className="avatar" src={message.author.avatar || '/avatar.svg'}/><p>{message.author.displayName || message.author.username}</p></div><p className="timestamp">{new Date(message.createdAt).toLocaleString()}</p></div></div>)}
+    </>) : (<div className="received"><div className="message-content received-content"><img src={message.image}/><p>{message.content}</p></div><div className="received-info"><div className="received-user"><img className="avatar" src={message.author.avatar || '/avatar.svg'}/><Link to={`/user/${message.author.id}`}>{message.author.firstName} {message.author.lastName}  <em>{message.author.username}</em></Link></div><p className="timestamp">{new Date(message.createdAt).toLocaleString()}</p></div></div>)}
   </>)
 }
 
