@@ -15,6 +15,7 @@ import MyPages from './components/partials/mypages'
 import Pages from './components/partials/pages'
 import NewGroup from './components/partials/newgroup'
 import Page from './components/partials/page'
+import styles from './styles/app.module.css'
 
 function App() {
   const {page, elementid} = useParams();
@@ -50,33 +51,39 @@ function App() {
   return (
     <>
       <Header user={user}/>
-      {page === 'home' ? (
-        <Posts user={user}/>
-      )
-      : page === 'profile' ? (
-        <Profile />
-      ): page === 'conversations' ? ( 
-        <Conversations user={user}/> 
-      ) : page === 'newconv' ? (
-        <NewConv me={user} toUser={elementid}/>
-      ) : page === 'conversation' ? (
-        <Conversation user={user} conversationId={elementid} />
-      ) : page === 'users' ? (
-        <Users me={user} reload={childReload}/>
-      ) : page === 'user' ? (
-        <User id={elementid} me={user} reload={childReload}/>
-      ) : page === 'requests' ? (
-        <Requests user={user} reload={childReload}/>
-      ) : page === 'pages' ? (
-        <Pages />
-      ) : page === 'newgroup' ? (
-        <NewGroup />
-      ) : page === 'page' ? (
-        <Page id={elementid} user={user} />
-      ) :
-      (<><div>Page not found</div></>)}
-      {user && <Friends user={user} />}
-      {user && <MyPages pages={user.groups} />}
+      <div className={styles.page}>
+        <div className={styles.content}>
+          {page === 'home' ? (
+            <Posts user={user}/>
+          )
+          : page === 'profile' ? (
+            <Profile />
+          ): page === 'conversations' ? (
+            <Conversations user={user}/>
+          ) : page === 'newconv' ? (
+            <NewConv me={user} toUser={elementid}/>
+          ) : page === 'conversation' ? (
+            <Conversation user={user} conversationId={elementid} />
+          ) : page === 'users' ? (
+            <Users me={user} reload={childReload}/>
+          ) : page === 'user' ? (
+            <User id={elementid} me={user} reload={childReload}/>
+          ) : page === 'requests' ? (
+            <Requests user={user} reload={childReload}/>
+          ) : page === 'pages' ? (
+            <Pages />
+          ) : page === 'newgroup' ? (
+            <NewGroup />
+          ) : page === 'page' ? (
+            <Page id={elementid} user={user} />
+          ) :
+          (<><div>Page not found</div></>)}
+        </div>
+        <div className={styles.sidebar}>
+          {user && <Friends user={user} />}
+          {user && <MyPages pages={user.groups} />}
+        </div>
+      </div>
     </>
   )
 }

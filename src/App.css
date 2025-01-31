@@ -26,3 +26,7 @@ img {
   max-height: 50px;
   max-width: 50px;
 }
+#root {
+  width: 100vw;
+  height: 100vh;
+}

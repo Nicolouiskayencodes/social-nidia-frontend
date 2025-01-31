@@ -1,10 +1,11 @@
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
+import styles from "../../styles/mypages.module.css"
 
 export default function MyPages({pages}) {
 
-  return(<div>
-    <Link to={'/pages'}>See all groups</Link>
+  return(<div className={styles.mypages}>
+    <Link to={'/pages'} className={styles.allpages}>See all groups</Link>
     {pages.map(page => <div key={page.id}>
       <Link to={`/page/${page.id}`}>{page.name}</Link>
       </div>)}

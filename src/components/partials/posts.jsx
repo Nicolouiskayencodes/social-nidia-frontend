@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import Post from "./post";
 import PropTypes from "prop-types";
+import styles from '../../styles/posts.module.css'
 
 export default function Posts({user}){
   const [posts, setPosts] = useState(null);
@@ -58,12 +59,12 @@ export default function Posts({user}){
       setReload(true)
     }
   return(
-    <div>
-      <form>
+    <div className={styles.page}>
+      <form className={styles.create}>
         <label htmlFor="post-content">What&apos;s on your mind?</label>
-        <input type="file" ref={photo} name="picture"></input>
-        <input type="text" ref={postContent} id="post-content"></input>
-        <button onClick={createPost}>Post</button>
+        <input type="file" ref={photo} name="picture" className={styles.inputs}></input>
+        <input type="text" ref={postContent} id="post-content" className={styles.inputs}></input>
+        <button onClick={createPost} className={styles.inputs}>Post</button>
       </form>
       {posts && <>
         {posts.map(post => <Post key={post.id} post={post} user={user} reload={childReload}/>)}

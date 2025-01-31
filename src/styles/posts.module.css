@@ -1,0 +1,13 @@
+.page{
+  padding: 1em;
+  width: 100%;
+}
+.create{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+.inputs {
+  align-self: flex-start;
+}
