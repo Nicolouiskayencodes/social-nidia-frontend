@@ -1,0 +1,40 @@
+.likes > button {
+  align-self: flex-start;
+}
+.update {
+  display: flex;
+  gap: 10px;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+.edit{
+  display: flex;
+}
+.edit > button {
+  margin: 5px;
+}
+.likes{
+  display: flex;
+}
+.likes > button {
+  margin: 5px;
+}
+.likenames {
+  display: flex;
+  flex-direction: column;
+}
+.avatar{
+  max-width: 50px;
+  max-height: 50px;
+}
+.user{
+  display: flex;
+  align-items: baseline;
+  gap: 10px
+}
+.comment{
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}

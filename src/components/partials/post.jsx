@@ -2,6 +2,7 @@ import PropTypes from "prop-types"
 import Comment from "./comment"
 import { useRef, useState } from "react"
 import { Link } from "react-router-dom"
+import styles from "../../styles/post.module.css"
 
 export default function Post({post, user, reload}) {
   const [comments, setComments] = useState(false)
@@ -128,22 +129,26 @@ export default function Post({post, user, reload}) {
   }
 
   return(
-    <div>
+    <div className={styles.post}>
       {(user && post) && <>
       {!updating ? (<>
-        <img src={post.image}></img>
+        <img src={post.image} className={styles.image}></img>
         <p>{post.content}</p>
-        <p>{new Date(post.createdAt).toLocaleString()}</p>
-        <Link to={`/user/${post.author.id}`}>{post.author.firstName} {post.author.lastName} <em>{post.author.username}</em></Link>
-        {post.author.id === user.id && <>
+        <div className={styles.info}>
+          <p>{new Date(post.createdAt).toLocaleString()}</p>
+          <Link to={`/user/${post.author.id}`} className={styles.user}><img src={post.author.avatar} className={styles.avatar}/> {post.author.firstName} {post.author.lastName} <em>{post.author.username}</em></Link>
+        </div>
+        {post.author.id === user.id && <div className={styles.edit}>
           {(!deleting) ? (<><button onClick={()=>setUpdating(true)}>Update post</button><button onClick={()=>setDeleting(true)}>Delete post</button></>) :
           (<><label>Are you sure you want to delete your post?</label>
             <button onClick={()=>setDeleting(false)}>Cancel</button>
             <button onClick={deletePost}>Yes, delete post</button>
           </>)}
-        </>}
-        {post.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
-        {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{post.likes.map(like => <Link to={`/user/${like.id}`} key={post.likes.indexOf(like)}>{like.firstName} {like.lastName} <em>{like.username}</em></Link>)}</>) : (<button onClick={()=>setLikes(true)}>{post.likes.length} likes</button>)}
+        </div>}
+        <div className={styles.likes}>
+          {post.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
+          {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button><div className={styles.likenames}>{post.likes.map(like => <Link to={`/user/${like.id}`} key={post.likes.indexOf(like)} className={styles.user}><img src={like.avatar} className={styles.avatar}/> {like.firstName} {like.lastName} <em>{like.username}</em></Link>)}</div></>) : (<button onClick={()=>setLikes(true)}>{post.likes.length} likes</button>)}
+        </div>
         <div>
           {comments ? (<>
             <button onClick={()=>setComments(false)}>Hide comments</button>
@@ -157,11 +162,11 @@ export default function Post({post, user, reload}) {
             <button onClick={()=>setComments(true)}>{post.comments.length} Comments</button>
           )}
         </div>
-        </>):(<>
+        </>):(<div className={styles.update}>
         <input type="text" ref={updateContent} defaultValue={post.content}></input>
         <button onClick={()=>setUpdating(false)}>Cancel</button>
         <button onClick={updatePost}>Update post</button>
-        </>)}
+        </div>)}
         </>}
     </div>
   )

@@ -6,6 +6,7 @@
   position: fixed;
   top: 0;
   height: 80px;
+  z-index: 2;
 }
 .span1{
   animation: 1s bounce infinite alternate;

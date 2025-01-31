@@ -45,6 +45,7 @@ export default function Users({me, reload}) {
   return(<>
   {(loading || !users || !me) ? (<div>loading...</div>) : (<div>
     {users.map(user => <div key={user.id}> {user.id !== me.id && <>
+      <img src={user.avatr}/>
       <span>{(user.firstName || user.lastName) ? (<>{user.firstName} {user.lastName}</>):(<>{user.username}</>)}</span>
       {(me.following.some(followed =>(followed.id === user.id))) ? (<span>Following</span>)
       : (me.sentRequests.some(sent=> (sent.id === user.id))) ? (<span>Requested</span>)

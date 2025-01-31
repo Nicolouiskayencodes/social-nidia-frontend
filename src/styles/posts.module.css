@@ -10,4 +10,8 @@
 }
 .inputs {
   align-self: flex-start;
+  width: 50%;
+}
+.inputs2{
+  align-self: flex-start;
 }

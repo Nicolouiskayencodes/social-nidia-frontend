@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import { useRef, useState } from "react"
 import { Link } from "react-router-dom";
+import styles from "../../styles/comment.module.css"
 
 export default function Comment({comment, user, reload}) {
   const [likes, setLikes] = useState(false)
@@ -99,25 +100,29 @@ export default function Comment({comment, user, reload}) {
     }
   }
   return(
-    <div>
+    <div className={styles.comment}>
       {!updating ? (<>
       <p>{comment.content}</p>
-      <p>{new Date(comment.createdAt).toLocaleString()}</p>
-      <Link to={`/user/${comment.author.id}`}>{comment.author.firstName} {comment.author.lastName} <em>{comment.author.username}</em></Link>
-      {comment.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
-        {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button>{comment.likes.map(like => <Link to={`/user/${like.id}`} key={comment.likes.indexOf(like)}>{like.firstName} {like.lastName} <em>{like.username}</em></Link>)}</>) : (<button onClick={()=>setLikes(true)}>{comment.likes.length} likes</button>)}
-        {comment.author.id === user.id && <>
+      <div className={styles.info}>
+        <p>{new Date(comment.createdAt).toLocaleString()}</p>
+        <Link to={`/user/${comment.author.id}`} className={styles.user}><img src={comment.author.avatar} className={styles.avatar}/> {comment.author.firstName} {comment.author.lastName} <em>{comment.author.username}</em></Link>
+      </div>
+      {comment.author.id === user.id && <div className={styles.edit}>
           {(!deleting) ? (<><button onClick={()=>setUpdating(true)}>Update comment</button><button onClick={()=>setDeleting(true)}>Delete comment</button></>) :
           (<><label>Are you sure you want to delete your comment?</label>
             <button onClick={()=>setDeleting(false)}>Cancel</button>
             <button onClick={deletePost}>Yes, delete comment</button>
           </>)}
-        </>}
-        </>):(<>
+        </div >}
+      <div className={styles.likes}>
+        {comment.likes.some(like => (like.id === user.id)) ? (<button onClick={unlike}>Unlike</button>) : (<button onClick={like}>Like</button>)}
+          {likes ? (<><button onClick={()=>setLikes(false)}>Hide Likes</button><div className={styles.likenames}>{comment.likes.map(like => <Link to={`/user/${like.id}`} key={comment.likes.indexOf(like)}>{like.firstName} {like.lastName} <em>{like.username}</em></Link>)}</div></>) : (<button onClick={()=>setLikes(true)}>{comment.likes.length} likes</button>)}
+      </div>
+        </>):(<div className={styles.update}>
         <input type="text" ref={updateContent} defaultValue={comment.content}></input>
         <button onClick={()=>setUpdating(false)}>Cancel</button>
         <button onClick={updateComment}>Update comment</button>
-        </>)}
+        </div>)}
     </div>
   )
 }
