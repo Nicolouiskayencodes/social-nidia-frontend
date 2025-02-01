@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
+import styles from "../../styles/requests.module.css"
 
 export default function Requests({user, reload}){
 
@@ -35,15 +36,15 @@ export default function Requests({user, reload}){
   }
 
   return(<>
-    {user && <>
-      {user.receivedRequests.map(request => <div key={request.id}>
+    {user && <div className={styles.requests}>
+      {user.receivedRequests.map(request => <div key={request.id} className={styles.request}>
         <span>{(user.firstName || user.lastName) ? (<>{user.firstName} {user.lastName}</>):(<>{user.username}</>)}</span>
         <Link to={`/user/${request.id}`}>Profile</Link>
         <button onClick={()=>reject(request.id)}>Reject Follow Request</button>
         <button onClick={()=>accept(request.id)}>Accept Follow Request</button>
       </div>
       )}
-    </>}
+    </div>}
   </>)
 }
 

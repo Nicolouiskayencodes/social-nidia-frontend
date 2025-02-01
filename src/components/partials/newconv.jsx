@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/newconv.module.css"
 
 export default function NewConv({toUser, me}){
   const navigate = useNavigate();
@@ -67,17 +68,17 @@ export default function NewConv({toUser, me}){
 
 
   return(
-    <>
-    <h1>Recipients</h1>
-    <ul className="recipient-list">
-      {recipients && recipients.map(recipient => <p key={recipients.indexOf(recipient)}>{recipient.displayName || recipient.username} <button onClick={()=>removeRecipient(recipient)}>X</button> </p>)}
+    <div className={styles.page}>
+    <h1 className={styles.headers}>Recipients</h1>
+    <ul className={styles.recipients}>
+      {recipients && recipients.map(recipient => <p key={recipients.indexOf(recipient)} className={styles.recipient}>{recipient.displayName || recipient.username} <button onClick={()=>removeRecipient(recipient)}>Remove</button> </p>)}
     </ul>
-    <h1>Add</h1>
-    {me && <ul className="user-list">
-      {users && users.map(user => <p key={user.id}>{(!recipients.includes(user) && user.id !== me.id) && <button onClick={() => addRecipient(user)} className="add-recipient"><img src={user.avatar || '/avatar.svg'} className="avatar"/> {user.displayName || user.username} +</button>}</p>)}
+    <h1 className={styles.headers}>Add</h1>
+    {me && <ul className={styles.list}>
+      {users && users.map(user => <p key={user.id}>{(!recipients.includes(user) && user.id !== me.id) && <button onClick={() => addRecipient(user)} className={styles.add}><img src={user.avatar} className={styles.avatar}/> {user.displayName || user.username} +</button>}</p>)}
     </ul>}
-    {!loading && <button onClick={startConversation} className="new-conversation">Message</button>}
-    </>
+    {!loading && <button onClick={startConversation}>Create Message</button>}
+    </div>
     
   )
 }

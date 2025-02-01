@@ -1,0 +1,33 @@
+.sent{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 5px;
+}
+.avatar {
+  max-width: 50px;
+  max-height: 50px;
+}
+.options{
+  display: flex;
+  gap: 10px;
+}
+.message {
+  padding: 10px;
+  border-bottom: solid black 1px;
+}
+.user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.received{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+}
+.image{
+  max-height: 400px;
+  max-width: 400px;
+}

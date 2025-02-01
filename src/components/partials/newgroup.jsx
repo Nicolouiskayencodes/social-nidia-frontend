@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/newgroup.module.css"
 
 export default function NewGroup () {
   const groupName = useRef(null);
@@ -38,9 +39,9 @@ export default function NewGroup () {
     setLoading(false)
   }
   return(
-    <form>
+    <form className={styles.form}>
       {taken && <p>That name is already taken</p>}
-      <label htmlFor="grpname">Group Name</label>
+      <label htmlFor="grpname">Group Name:</label>
       <input id="grpname" type="text" ref={groupName}></input>
       <button onClick={createGroup}>Create Group</button>
     </form>

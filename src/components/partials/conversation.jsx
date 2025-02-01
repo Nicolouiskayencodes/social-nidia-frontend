@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import Message from "./message";
+import styles from "../../styles/conversation.module.css"
 
 export default function Conversation({conversationId, user}) {
   const [messages, setMessages] = useState(null)
@@ -53,14 +54,15 @@ export default function Conversation({conversationId, user}) {
   }
   }
   const childReload= () => setReload(true)
-  return(<><h1 className="conversation-title">{(recipients && user) && recipients.map(recipient => <span key={recipient.id}>{recipient.id !== user.id && <> | { recipient.displayName || recipient.username} | </>}</span>)}</h1>
-    <div className="conversation-container">
-    <div><div className="conversation">{(messages && user)  && messages.map(message => <Message key={messages.indexOf(message)} message={message} user={user} reload={childReload}/>)}</div>
-    <form onSubmit={submitMessage} className="new-message"><label>New Message:</label><input type="file" ref={photo} name="picture"></input><input type="text" ref={newMessage} name="content"></input>
+  return(<div className={styles.page}>
+  <h1 className={styles.title}>{(recipients && user) && recipients.map(recipient => <span key={recipient.id} >{recipient.id !== user.id && <div className={styles.recipient}>{recipient.firstname} {recipient.lastname} <em>{recipient.username}</em></div>}</span>)}</h1>
+    <div>
+    <div><div >{(messages && user)  && messages.map(message => <Message key={messages.indexOf(message)} message={message} user={user} reload={childReload}/>)}</div>
+    <form onSubmit={submitMessage} className={styles.new}><input type="file" ref={photo} name="picture"></input><input type="text" ref={newMessage} name="content" className={styles.newtext}></input>
     {!sending &&<button type="submit" className="submit">Send</button>}</form>
     </div>
     </div>
-    </>)
+    </div>)
 }
 
 Conversation.propTypes = {

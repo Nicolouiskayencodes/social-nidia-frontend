@@ -1,0 +1,30 @@
+.page{
+  padding: 20px;
+}
+.recipients {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 10px;
+}
+.recipient {
+  display: grid;
+  grid-template-columns: auto 100px;
+  align-items: center;
+}
+.headers {
+  font-size: 20px;
+  text-decoration: underline;
+  margin: 20px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+}
+.add {
+  margin-bottom: 10px;
+}
+.avatar{
+  max-width: 50px;
+  max-height: 50px;
+}

@@ -29,7 +29,7 @@
 }
 .user{
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px
 }
 .image{
@@ -42,4 +42,10 @@
 .update {
   display: flex;
   gap: 10px;
+}
+.comment{
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin: 10px;
 }

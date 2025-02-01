@@ -1,0 +1,20 @@
+.page{
+  padding: 20px;
+}
+.title {
+  display: flex;
+}
+.recipient{
+  padding-right: 20px;
+}
+.new{
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  border: solid black 1px;
+  border-top: none;
+  border-radius: 5px;
+}
+.newtext{
+  width: 100%;
+}

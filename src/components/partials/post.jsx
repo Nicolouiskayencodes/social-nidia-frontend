@@ -153,7 +153,7 @@ export default function Post({post, user, reload}) {
           {comments ? (<>
             <button onClick={()=>setComments(false)}>Hide comments</button>
             {post.comments.map(comment => <Comment key={comment.id} comment={comment} user={user} reload={reload}/>)}
-            <form>
+            <form className={styles.comment}>
             <label htmlFor="comment">Leave a comment:</label>
             <input type="text" ref={newComment}></input>
             <button onClick={submitComment}>Post comment</button>
