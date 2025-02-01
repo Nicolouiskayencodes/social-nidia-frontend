@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import Post from "./post";
 import { Link } from "react-router-dom";
+import styles from "../../styles/page.module.css"
 
 export default function Page({id, user}) {
   const [page, setPage] = useState(null)
@@ -180,10 +181,10 @@ export default function Page({id, user}) {
     setReload(true)
   }
 
-  return(<div>
+  return(<div className={styles.page}>
     {page && <>
+    {page.banner && <img src={page.banner} className={styles.banner}></img>}
     <h1>{page.name}</h1>
-    {page.banner && <img src={page.banner}></img>}
     <p>{page.bio}</p>
     {(page.members.some(member => member.id === user.id)) ? (
       <button onClick={leave}>Leave group</button>
@@ -215,7 +216,7 @@ export default function Page({id, user}) {
       <div>{page.sidebar}</div>
       {page.members.map(member => <div key={member.id}> {member.id !== user.id && <>
       <span>{(member.firstName || member.lastName) ? (<>{member.firstName} {member.lastName}</>):(<>{member.username}</>)}</span>
-      {(admin && !page.admins.some(person => person.id === member.id)) && <button onClick={()=>makeAdmin(member.id)}>Promote to admin</button>}
+      {(admin && !(page.admins.some(person => person.id === member.id))) && <button onClick={()=>makeAdmin(member.id)}>Promote to admin</button>}
       <Link to={`/user/${user.id}`}>Profile</Link>
       </>}</div>)}
     </div>

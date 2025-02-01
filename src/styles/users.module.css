@@ -1,0 +1,10 @@
+.user {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.avatar {
+  max-width: 50px;
+  max-height: 50px;
+}

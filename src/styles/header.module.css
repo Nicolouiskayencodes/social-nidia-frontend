@@ -56,13 +56,19 @@
   display: inline-block;
   flex-direction: column;
   position: relative;
-  margin-right: 1em;
+  margin-right: 50px;
+}
+.dropdown > button {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
 .expand {
   position: absolute;
   display: block;
   background-color: aliceblue;
   padding: 0.2em;
+  border: black 1px solid;
 }
 .expandinner{
   display: flex;
@@ -83,4 +89,8 @@
 }
 .dropdownitem:active {
   color: palevioletred;
+}
+.avatar{
+  max-width: 50px;
+  max-height: 50px;
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Post from "./post";
+import styles from "../../styles/profile.module.css"
 
 export default function Profile() {
   const [user, setUser] = useState(null)
@@ -57,16 +58,20 @@ export default function Profile() {
     setReload(true)
   }
   return(
-    <div>{user && <>
-      <img src={user.avatar}></img>
-      <h1>{user.firstName} {user.lastName}</h1>
-      <h2>{user.username}</h2>
-      <p>{user.bio}</p>
-      <form>
+    <div className={styles.profile}>{user && <>
+      <div className={styles.info}>
+        <img src={user.avatar} className={styles.avatar}></img>
+        <div className={styles.bio}>
+          <h1>{user.firstName} {user.lastName}</h1>
+          <h2>{user.username}</h2>
+          <p>{user.bio}</p>
+        </div>
+      </div>
+      <form className={styles.create}>
         <label htmlFor="post-content">What&apos;s on your mind?</label>
         <input type="file" ref={photo} name="picture"></input>
-        <input type="text" ref={postContent} id="post-content"></input>
-        <button onClick={createPost}>Post</button>
+        <input type="text" ref={postContent} id="post-content" className={styles.inputs}></input>
+        <button onClick={createPost} className={styles.inputs2}>Post</button>
       </form>
       {user.posts.map(post => <div key={post.id}>{!post.groupId && <Post post={post} user={user} reload={childReload}/>}
         </div>)}

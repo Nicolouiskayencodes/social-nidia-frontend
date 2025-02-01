@@ -39,7 +39,7 @@ export default function Header({user}) {
         <Link to={"/home"}>Home</Link>
         <Link to={"/conversations"}>Messages {(unread > 0) && <span>({unread})</span>}</Link>
         <div className={styles.dropdown}>
-        <button onClick={openUserList}>{user && <img src={user.avatar}></img>}</button> 
+        <button onClick={openUserList}>{user && <><img src={user.avatar} className={styles.avatar}></img><span>{user.username}</span></>}</button> 
         {userState && <div className={styles.expand}>
           <div className={styles.expandinner}>
             <Link to={"/profile"} className={styles.dropdownitem}>Profile</Link>
