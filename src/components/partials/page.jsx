@@ -184,41 +184,51 @@ export default function Page({id, user}) {
   return(<div className={styles.page}>
     {page && <>
     {page.banner && <img src={page.banner} className={styles.banner}></img>}
-    <h1>{page.name}</h1>
-    <p>{page.bio}</p>
-    {(page.members.some(member => member.id === user.id)) ? (
-      <button onClick={leave}>Leave group</button>
-    ) : (
-      <button onClick={join}>Join group</button>
-    )}
-    {admin && <>
-      {edit ? (<form>
-        <label htmlFor="bio">Bio: </label>
-        <textarea id="bio" ref={bio}>{page.bio}</textarea>
-        <label htmlFor="sidebar">Sidebar: </label>
-        <textarea id="sidebar" ref={sidebar}>{page.sidebar}</textarea>
-        <label htmlFor="banner">Banner image: </label>
-        <input type="file" ref={banner} id="banner" ></input>
-        <button onClick={cancel}>Cancel edit</button>
-        <button onClick={editGroup}>Edit group</button>
-      </form>) 
-      : (<button onClick={()=>setEdit(true)}>Edit group</button>)}
-    </>}
-    <form>
-        <label htmlFor="post-content">What&apos;s on your mind?</label>
-        <input type="file" ref={photo} name="picture"></input>
-        <input type="text" ref={postContent} id="post-content"></input>
-        <button onClick={post}>Post</button>
-      </form>
-      {page.posts.map(post => <div key={post.id}><Post key={post.id} post={post} user={user} reload={childReload}/>
-      {admin && <button onClick={()=>adminDelete(post.id)}>Delete Post</button>}</div>)}
     <div>
+      <h1>{page.name}</h1>
+      <p>{page.bio}</p>
+      {(page.members.some(member => member.id === user.id)) ? (
+        <button onClick={leave} className={styles.joinleave}>Leave group</button>
+      ) : (
+        <button onClick={join} className={styles.joinleave}>Join group</button>
+      )}
+      {admin && <>
+        {edit ? (<form className={styles.edit}>
+          <label htmlFor="bio">Bio: </label>
+          <textarea id="bio" ref={bio} className={styles.textarea}>{page.bio}</textarea>
+          <label htmlFor="sidebar">Sidebar: </label>
+          <textarea id="sidebar" ref={sidebar} className={styles.textarea}>{page.sidebar}</textarea>
+          <label htmlFor="banner">Banner image: </label>
+          <input type="file" ref={banner} id="banner" ></input>
+          <button onClick={cancel} className={styles.editbuttons}>Cancel edit</button>
+          <button onClick={editGroup} className={styles.editbuttons}>Edit group</button>
+        </form>)
+        : (<button onClick={()=>setEdit(true)}>Edit group</button>)}
+      </>}
+      <form className={styles.makepost}>
+          <label htmlFor="post-content">What&apos;s on your mind?</label>
+          <input type="file" ref={photo} name="picture"></input>
+          <input type="text" ref={postContent} id="post-content"></input>
+          <button onClick={post}>Post</button>
+        </form>
+        {page.posts.map(post => <div key={post.id} className={styles.post}><Post key={post.id} post={post} user={user} reload={childReload} />
+        {admin && <button onClick={()=>adminDelete(post.id)} className={styles.delete}>Delete Post</button>}</div>)}
+    </div>
+    <div className={styles.sidebar}>
       <div>{page.sidebar}</div>
-      {page.members.map(member => <div key={member.id}> {member.id !== user.id && <>
-      <span>{(member.firstName || member.lastName) ? (<>{member.firstName} {member.lastName}</>):(<>{member.username}</>)}</span>
-      {(admin && !(page.admins.some(person => person.id === member.id))) && <button onClick={()=>makeAdmin(member.id)}>Promote to admin</button>}
-      <Link to={`/user/${user.id}`}>Profile</Link>
-      </>}</div>)}
+      <div className={styles.members}>
+        <h2>Members</h2>
+        {page.members.map(member => <div key={member.id} className={styles.member}> {member.id !== user.id && <>
+        <div>{member.firstName} {member.lastName} <em>{member.username}</em></div>
+        {(admin && !(page.admins.some(person => person.id === member.id))) && <button onClick={()=>makeAdmin(member.id)} className={styles.admin}>Promote to admin</button>}
+        <Link to={`/user/${user.id}`}>Profile</Link>
+        </>}
+        {member.id === user.id && <>
+        <div>{member.firstName} {member.lastName} <em>{member.username}</em></div>
+        <Link to={`/user/${user.id}`}>Profile</Link>
+        </>}
+        </div>)}
+      </div>
     </div>
     </>}
   </div>)
