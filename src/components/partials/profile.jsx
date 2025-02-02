@@ -26,7 +26,8 @@ export default function Profile() {
       setUser(response)
     })
   }, [setUser, reload])
-  function createPost() {
+  function createPost(event) {
+    event.preventDefault()
     if (!loading){
     setLoading(true)
     const formData = new FormData()

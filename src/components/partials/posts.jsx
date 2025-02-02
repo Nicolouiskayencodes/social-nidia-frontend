@@ -27,7 +27,8 @@ export default function Posts({user}){
         setPosts(response)
       })
     }, [setPosts, reload])
-  function createPost() {
+  function createPost(event) {
+    event.preventDefault()
     if (!loading){
     setLoading(true)
     const formData = new FormData()
