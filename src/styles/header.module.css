@@ -47,6 +47,7 @@
   align-items: center;
   justify-content: center;
   font-size: 40px;
+  color: black;
 }
 .nav {
   display: flex;
