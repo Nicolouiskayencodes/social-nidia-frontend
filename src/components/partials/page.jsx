@@ -18,7 +18,7 @@ export default function Page({id, user}) {
   useEffect(()=> {
     setReload(false)
     if (user){
-    fetch(`http://localhost:3000/group/${id}`, {
+    fetch(`https://social-nidia.onrender.com/group/${id}`, {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ export default function Page({id, user}) {
         formData.append('sidebar', sidebar.current.value)
       }
       if (banner.current.files[0] ||bio.current.value || sidebar.current.value){
-      fetch(`http://localhost:3000/group/${id}`, {
+      fetch(`https://social-nidia.onrender.com/group/${id}`, {
         mode: "cors",
         method: "PUT",
         headers: {
@@ -98,7 +98,7 @@ export default function Page({id, user}) {
         formData.append('content', postContent.current.value)
       }
       if (photo.current.files[0] ||postContent.current.value ){
-      fetch(`http://localhost:3000/group/post/${id}`, {
+      fetch(`https://social-nidia.onrender.com/group/post/${id}`, {
         mode: "cors",
         method: "POST",
         headers: {
@@ -118,7 +118,7 @@ export default function Page({id, user}) {
     }
   }
   function leave() {
-    fetch(`http://localhost:3000/leave/${id}`, {
+    fetch(`hhttps://social-nidia.onrender.com/leave/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export default function Page({id, user}) {
     })
   }
   function join() {
-    fetch(`http://localhost:3000/join/${id}`, {
+    fetch(`https://social-nidia.onrender.com/join/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
@@ -148,7 +148,7 @@ export default function Page({id, user}) {
     })
   }
   function makeAdmin(userid) {
-    fetch(`http://localhost:3000/admin/${id}/${userid}`, {
+    fetch(`https://social-nidia.onrender.com/admin/${id}/${userid}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
@@ -163,7 +163,7 @@ export default function Page({id, user}) {
     })
   }
   function adminDelete(postid){
-    fetch(`http://localhost:3000/group/${page.id}/${postid}`, {
+    fetch(`https://social-nidia.onrender.com/group/${page.id}/${postid}`, {
       method: "DELETE",
       headers: {
           "Content-Type": "application/json",

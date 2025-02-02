@@ -13,7 +13,7 @@ export default function Conversation({conversationId, user}) {
   useEffect(()=>{
     setReload(false)
     setSending(false)
-    fetch(`http://localhost:3000/conversation/${conversationId}`, {
+    fetch(`https://social-nidia.onrender.com/conversation/${conversationId}`, {
       method: "GET",
       headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export default function Conversation({conversationId, user}) {
       formData.append('content', newMessage.current.value)
     }
     if (photo.current.files[0] ||newMessage.current.value ){
-      await fetch(`http://localhost:3000/message/${conversationId}`, {
+      await fetch(`https://social-nidia.onrender.com/message/${conversationId}`, {
         headers: { "Authorization": localStorage.getItem("Authorization"),},
         method: "POST", 
         body: formData, 

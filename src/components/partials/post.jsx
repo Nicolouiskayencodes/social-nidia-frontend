@@ -17,7 +17,7 @@ export default function Post({post, user, reload}) {
     event.preventDefault()
     if(!loading && newComment.current.value.trim() !== ''){
       setLoading(true)
-      fetch(`http://localhost:3000/comment/${post.id}`,
+      fetch(`https://social-nidia.onrender.com/comment/${post.id}`,
         {
           mode: "cors",
           method: "POST",
@@ -39,7 +39,7 @@ export default function Post({post, user, reload}) {
   }
   function like() {
     setLoading(true)
-    fetch(`http://localhost:3000/likepost/${post.id}`,
+    fetch(`https://social-nidia.onrender.com/likepost/${post.id}`,
         {
           mode: "cors",
           method: "PUT",
@@ -59,7 +59,7 @@ export default function Post({post, user, reload}) {
   }
   function unlike() {
     setLoading(true)
-    fetch(`http://localhost:3000/unlikepost/${post.id}`,
+    fetch(`https://social-nidia.onrender.com/unlikepost/${post.id}`,
       {
         mode: "cors",
         method: "PUT",
@@ -85,7 +85,7 @@ export default function Post({post, user, reload}) {
     event.preventDefault()
     if (!loading) {
       setLoading(true)
-      fetch(`http://localhost:3000/post/${post.id}`,
+      fetch(`https://social-nidia.onrender.com/post/${post.id}`,
         {
           mode: "cors",
           method: "DELETE",
@@ -105,7 +105,7 @@ export default function Post({post, user, reload}) {
     event.preventDefault()
     if (!loading && updateContent.current.value.trim() !== '') {
       setLoading(true)
-      fetch(`http://localhost:3000/post/${post.id}`,
+      fetch(`https://social-nidia.onrender.com/post/${post.id}`,
         {
           mode: "cors",
           method: "PUT",

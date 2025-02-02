@@ -9,7 +9,7 @@ function Login() {
   const navigate = useNavigate()
   useEffect(()=>{
     if (localStorage.getItem("Authorization")){
-      fetch('http://localhost:3000/user', {
+      fetch('https://social-nidia.onrender.com/user', {
         mode: "cors",
       method: "GET",
       headers: { "Content-Type": "application/json",
@@ -30,7 +30,7 @@ function Login() {
   const submitLogin = async (event) => {
     setLoading(true)
     event.preventDefault();
-    await fetch("http://localhost:3000/login", {
+    await fetch("https://social-nidia.onrender.com/login", {
       mode: "cors",
       method: "POST", body: JSON.stringify({
         username: username.current.value,

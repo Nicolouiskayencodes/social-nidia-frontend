@@ -11,7 +11,7 @@ export default function NewConv({toUser, me}){
   const startConversation = useCallback(() => {
     setLoading(true)
     if (recipients.length > 0){
-    fetch('http://localhost:3000/conversation', {
+    fetch('https://social-nidia.onrender.com/conversation', {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export default function NewConv({toUser, me}){
 )
   useEffect(()=>{
     setLoading(true)
-    fetch('http://localhost:3000/users', {
+    fetch('https://social-nidia.onrender.com/users', {
       method: "GET",
       headers: {
           "Content-Type": "application/json",

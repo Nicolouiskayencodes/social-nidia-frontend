@@ -5,7 +5,7 @@ import styles from "../../styles/groups.module.css"
 export default function Pages() {
   const [groups, setGroups] = useState(null)
   useEffect(()=> {
-    fetch('http://localhost:3000/group', {
+    fetch('https://social-nidia.onrender.com/group', {
       method: "GET",
       headers: {
           "Content-Type": "application/json",

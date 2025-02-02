@@ -6,7 +6,7 @@ import styles from "../../styles/profile.module.css"
 export default function User({id, me, reload}) {
   const [user, setUser] = useState(null)
   useEffect(()=>{
-    fetch(`http://localhost:3000/user/${id}`, {
+    fetch(`https://social-nidia.onrender.com/user/${id}`, {
       mode: "cors",
     method: "GET",
     headers: { "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export default function User({id, me, reload}) {
     })
   }, [reload, id, me])
   const follow = async(id) => {
-    fetch(`http://localhost:3000/follow/${id}`, {
+    fetch(`https://social-nidia.onrender.com/follow/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export default function User({id, me, reload}) {
     })
   }
   const unfollow = async(id) => {
-    fetch(`http://localhost:3000/unfollow/${id}`, {
+    fetch(`https://social-nidia.onrender.com/unfollow/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",

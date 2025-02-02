@@ -10,7 +10,7 @@ function Message({message, user, reload}) {
   const comment = useRef(null)
   const submitEdit = async () => {
     setLoading(true)
-   await fetch(`http://localhost:3000/message/${message.id}`, {
+   await fetch(`https://social-nidia.onrender.com/message/${message.id}`, {
       method: "PUT", 
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ function Message({message, user, reload}) {
   }
   const deleteComment = async () => {
     setLoading(true)
-    await fetch(`http://localhost:3000/message/${message.id}`, {
+    await fetch(`https://social-nidia.onrender.com/message/${message.id}`, {
       method: "DELETE", 
       headers: { "Authorization": localStorage.getItem("Authorization"),},
     }

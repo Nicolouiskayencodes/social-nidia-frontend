@@ -8,7 +8,7 @@ export default function Users({me, reload}) {
   const [users, setUsers] = useState(null);
   useEffect(()=>{
       setLoading(true)
-      fetch('http://localhost:3000/users', {
+      fetch('https://social-nidia.onrender.com/users', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export default function Users({me, reload}) {
     })
     }, [reload])
     const follow = async(id) => {
-      fetch(`http://localhost:3000/follow/${id}`, {
+      fetch(`https://social-nidia.onrender.com/follow/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

@@ -11,7 +11,7 @@ export default function NewGroup () {
     event.preventDefault();
     setLoading(true)
     if (!loading) {
-    fetch('http://localhost:3000/group', {
+    fetch('https://social-nidia.onrender.com/group', {
       method: "POST",
       headers: {
           "Content-Type": "application/json",

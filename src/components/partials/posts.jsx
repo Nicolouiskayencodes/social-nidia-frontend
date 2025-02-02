@@ -11,7 +11,7 @@ export default function Posts({user}){
   const photo = useRef(null);
   useEffect(()=>{
     setReload(false)
-      fetch('http://localhost:3000/post', {
+      fetch('https://social-nidia.onrender.com/post', {
       mode: "cors",
       method: "GET",
       headers: { "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export default function Posts({user}){
       formData.append('content', postContent.current.value)
     }
     if (photo.current.files[0] ||postContent.current.value ){
-    fetch('http://localhost:3000/post', {
+    fetch('https://social-nidia.onrender.com/post', {
       mode: "cors",
       method: "POST",
       headers: {

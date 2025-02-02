@@ -5,7 +5,7 @@ import styles from "../../styles/requests.module.css"
 export default function Requests({user, reload}){
 
   const reject = async(id) => {
-    fetch(`http://localhost:3000/unfollow/${id}`, {
+    fetch(`https://social-nidia.onrender.com/unfollow/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export default function Requests({user, reload}){
     })
   }
   const accept = async(id) => {
-    fetch(`http://localhost:3000/accept/${id}`, {
+    fetch(`https://social-nidia.onrender.com/accept/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",

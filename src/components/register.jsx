@@ -23,7 +23,7 @@ export default function Register () {
     if (errors.length > 0){
       return setErrors(errors)
     } else {
-      await fetch("http://localhost:3000/register", {
+      await fetch("https://social-nidia.onrender.com/register", {
         mode: "cors",
         method: "POST", body: JSON.stringify({
           username: username.current.value,

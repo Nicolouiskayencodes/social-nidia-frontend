@@ -11,7 +11,7 @@ export default function Comment({comment, user, reload}) {
   const updateContent = useRef(null)
   function like() {
     setLoading(true)
-    fetch(`http://localhost:3000/likecomment/${comment.id}`,
+    fetch(`https://social-nidia.onrender.com/likecomment/${comment.id}`,
         {
           mode: "cors",
           method: "PUT",
@@ -31,7 +31,7 @@ export default function Comment({comment, user, reload}) {
   }
   function unlike() {
     setLoading(true)
-    fetch(`http://localhost:3000/unlikecomment/${comment.id}`,
+    fetch(`https://social-nidia.onrender.com/unlikecomment/${comment.id}`,
       {
         mode: "cors",
         method: "PUT",
@@ -57,7 +57,7 @@ export default function Comment({comment, user, reload}) {
     event.preventDefault()
     if (!loading) {
       setLoading(true)
-      fetch(`http://localhost:3000/comment/${comment.id}`,
+      fetch(`https://social-nidia.onrender.com/comment/${comment.id}`,
         {
           mode: "cors",
           method: "DELETE",
@@ -77,7 +77,7 @@ export default function Comment({comment, user, reload}) {
     event.preventDefault()
     if (!loading && updateContent.current.value.trim() !== '') {
       setLoading(true)
-      fetch(`http://localhost:3000/comment/${comment.id}`,
+      fetch(`https://social-nidia.onrender.com/comment/${comment.id}`,
         {
           mode: "cors",
           method: "PUT",
