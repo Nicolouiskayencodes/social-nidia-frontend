@@ -59,6 +59,7 @@ export default function Profile() {
   }
   return(
     <div className={styles.profile}>{user && <>
+    
       <div className={styles.info}>
         <img src={user.avatar} className={styles.avatar}></img>
         <div className={styles.bio}>

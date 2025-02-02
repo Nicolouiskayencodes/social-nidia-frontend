@@ -3,7 +3,7 @@
   width: 100vw;
 }
 .leftside{
-  background: no-repeat center/100% url(lanterns.jpg);
+  background: no-repeat center/100% url('../assets/lanterns.jpg');
   background-size:cover;
   height: 100vh;
   width: 40%;

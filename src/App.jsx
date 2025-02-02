@@ -25,7 +25,7 @@ function App() {
   console.log(user)
   useEffect(()=>{
     setReload(false)
-    fetch('http://localhost:3000/user', {
+    fetch('https://social-nidia.onrender.com/user', {
       mode: "cors",
     method: "GET",
     headers: { "Content-Type": "application/json",
