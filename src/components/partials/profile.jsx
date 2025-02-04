@@ -6,8 +6,13 @@ export default function Profile() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(false)
   const [reload, setReload] = useState(false);
+  const [edit, setEdit] = useState(false);
   const postContent = useRef(null)
   const photo = useRef(null);
+  const avatar = useRef(null);
+  const firstName = useRef(null);
+  const lastName = useRef(null);
+  const bio = useRef(null);
   useEffect(()=>{
     setReload(false)
     fetch('https://social-nidia.onrender.com/user', {
@@ -58,17 +63,95 @@ export default function Profile() {
   function childReload(){
     setReload(true)
   }
+  function changeAvatar(event){
+    event.preventDefault()
+    if (!loading){
+      setLoading(true)
+      const formData = new FormData()
+      if (photo.current.files[0]){ 
+        formData.append('file', avatar.current.files[0])
+      }
+      fetch('https://social-nidia.onrender.com/avatar', {
+        mode: "cors",
+        method: "PUT",
+        headers: {
+        "Authorization": localStorage.getItem("Authorization")},
+        body: formData
+        })
+        .then(response => {
+          setLoading(false)
+          if (response.status === 200) {
+          avatar.current.value = null;
+          }
+        })
+      }
+  }
+  function changeName(event){
+    event.preventDefault();
+    fetch('https://social-nidia.onrender.com/username', {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("Authorization"),
+      },
+      body: JSON.stringify({
+        firstName: firstName.current.value,
+        lastName: lastName.current.value,
+      })
+    }
+    )
+    .then(response => {
+      setLoading(false)
+      if (response.status === 200) {
+        console.log('success')
+      }
+    })
+  }
+  function changeBio(event){
+    event.preventDefault();
+    fetch('https://social-nidia.onrender.com/bio', {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("Authorization"),
+      },
+      body: JSON.stringify({
+        bio: bio.current.value,
+      })
+    }
+    )
+    .then(response => {
+      setLoading(false)
+      if (response.status === 200) {
+        console.log('success')
+      }
+    })
+  }
   return(
     <div className={styles.profile}>{user && <>
-    
       <div className={styles.info}>
         <img src={user.avatar} className={styles.avatar}></img>
         <div className={styles.bio}>
           <h1>{user.firstName} {user.lastName}</h1>
           <h2>{user.username}</h2>
           <p>{user.bio}</p>
+          <button onClick={()=>setEdit(true)}>Edit Profile</button>
         </div>
       </div>
+      {edit && <div>
+        <label htmlFor="#avatar">Profile Photo:</label>
+        <input type="file" id="avatar" ref={avatar}></input>
+        <button onClick={changeAvatar}>Change profile picture</button>
+        <label htmlFor="#firstname">First Name:</label>
+        <input type="text" id="firstname" ref={firstName} defaultValue={user.firstName}></input>
+        <label htmlFor="#lastname">Last Name:</label>
+        <input type="text" id="lastname" ref={lastName} defaultValue={user.lastName}></input>
+        <button onClick={changeName}>Change display name</button>
+        <label htmlFor="#bio">Bio</label>
+        <input type="text" id="bio" ref={bio} defaultValue={user.bio}></input>
+        <button onClick={changeBio}>Change Bio</button>
+        <button onClick={()=>setEdit(false)}>Close edit</button>
+        </div>}
       <form className={styles.create}>
         <label htmlFor="post-content">What&apos;s on your mind?</label>
         <input type="file" ref={photo} name="picture"></input>
