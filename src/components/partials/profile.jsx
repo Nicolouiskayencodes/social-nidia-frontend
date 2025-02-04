@@ -55,6 +55,7 @@ export default function Profile() {
         if (response.status === 200) {
         postContent.current.value = null;
         photo.current.value = null;
+        setReload(true)
         }
       })
     }
@@ -82,6 +83,7 @@ export default function Profile() {
           setLoading(false)
           if (response.status === 200) {
           avatar.current.value = null;
+          setReload(true)
           }
         })
       }
@@ -104,6 +106,7 @@ export default function Profile() {
       setLoading(false)
       if (response.status === 200) {
         console.log('success')
+        setReload(true)
       }
     })
   }
@@ -124,6 +127,7 @@ export default function Profile() {
       setLoading(false)
       if (response.status === 200) {
         console.log('success')
+        setReload(true)
       }
     })
   }

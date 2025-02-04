@@ -51,6 +51,7 @@ export default function Posts({user}){
         if (response.status === 200) {
         postContent.current.value = null;
         photo.current.value = null;
+        setReload(true)
         }
       })
     }
@@ -75,5 +76,5 @@ export default function Posts({user}){
 }
 
 Posts.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
 }

@@ -75,7 +75,7 @@ function App() {
           ) : page === 'newgroup' ? (
             <NewGroup />
           ) : page === 'page' ? (
-            <Page id={elementid} user={user} />
+            <Page id={elementid} user={user} reload={childReload}/>
           ) :
           (<><div>Page not found</div></>)}
         </div>
