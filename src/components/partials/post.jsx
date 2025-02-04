@@ -122,6 +122,7 @@ export default function Post({post, user, reload}) {
           post.content = updateContent.current.value
         updateContent.current.value = ''
         setUpdating(false)
+        reload()
         }
         setLoading(false)
       })
