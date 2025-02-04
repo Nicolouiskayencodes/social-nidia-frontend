@@ -56,12 +56,12 @@ function Login() {
       <div className={styles.leftside}>
         <div className={styles.banner}><span className={styles.span1}>N</span><span className={styles.span2}>i</span><span className={styles.span3}>d</span><span className={styles.span4}>i</span><span className={styles.span5}>a</span></div>
       </div>
-      {loading && <p>loading...</p>}
       <div className={styles.rightside}>
         <form className={styles.form}>
           <div className={styles.field}><label htmlFor="username">Username: </label><input type="text" id="username" ref={username}></input></div>
           <div className={styles.field}><label htmlFor="password">Password: </label><input type="password" id="password" ref={password}></input></div>
-          <button onClick={submitLogin}>Login</button>
+          {!loading && <button onClick={submitLogin}>Login</button>}
+          {loading && <p>loading...</p>}
         </form>
         <p className={styles.register}>Not a member? <Link to={"/register"}>Register here!</Link></p>
       </div>
