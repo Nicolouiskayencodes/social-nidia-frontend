@@ -34,3 +34,15 @@
 .inputs2{
   align-self: flex-start;
 }
+.edit{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.field{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}

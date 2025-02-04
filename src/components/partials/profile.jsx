@@ -138,18 +138,24 @@ export default function Profile() {
           <button onClick={()=>setEdit(true)}>Edit Profile</button>
         </div>
       </div>
-      {edit && <div>
-        <label htmlFor="#avatar">Profile Photo:</label>
-        <input type="file" id="avatar" ref={avatar}></input>
-        <button onClick={changeAvatar}>Change profile picture</button>
-        <label htmlFor="#firstname">First Name:</label>
-        <input type="text" id="firstname" ref={firstName} defaultValue={user.firstName}></input>
-        <label htmlFor="#lastname">Last Name:</label>
-        <input type="text" id="lastname" ref={lastName} defaultValue={user.lastName}></input>
-        <button onClick={changeName}>Change display name</button>
-        <label htmlFor="#bio">Bio</label>
-        <input type="text" id="bio" ref={bio} defaultValue={user.bio}></input>
-        <button onClick={changeBio}>Change Bio</button>
+      {edit && <div className={styles.edit}>
+        <div className={styles.field}>
+          <label htmlFor="#avatar">Profile Photo:</label>
+          <input type="file" id="avatar" ref={avatar}></input>
+          <button onClick={changeAvatar}>Change profile picture</button>
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="#firstname">First Name:</label>
+          <input type="text" id="firstname" ref={firstName} defaultValue={user.firstName}></input>
+          <label htmlFor="#lastname">Last Name:</label>
+          <input type="text" id="lastname" ref={lastName} defaultValue={user.lastName}></input>
+          <button onClick={changeName}>Change display name</button>
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="#bio">Bio</label>
+          <input type="text" id="bio" ref={bio} defaultValue={user.bio}></input>
+          <button onClick={changeBio}>Change Bio</button>
+        </div>
         <button onClick={()=>setEdit(false)}>Close edit</button>
         </div>}
       <form className={styles.create}>
