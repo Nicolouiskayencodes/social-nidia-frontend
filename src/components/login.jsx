@@ -6,6 +6,7 @@ function Login() {
   const username = useRef(null)
   const password = useRef(null)
   const [loading, setLoading] = useState(true)
+  const [wrong, setWrong] = useState(false)
   const navigate = useNavigate()
   useEffect(()=>{
     if (localStorage.getItem("Authorization")){
@@ -28,8 +29,8 @@ function Login() {
     }
   }, [loading, navigate])
   const submitLogin = async (event) => {
-    setLoading(true)
     event.preventDefault();
+    setLoading(true)
     await fetch("https://social-nidia.onrender.com/login", {
       mode: "cors",
       method: "POST", body: JSON.stringify({
@@ -39,6 +40,10 @@ function Login() {
       headers: { "Content-Type": "application/json" },
     })
     .then(response => {
+      if (response.status === 401) {
+        setWrong(true)
+        setLoading(false)
+      }
       return response.json()
     })
     .then(response => {
@@ -47,7 +52,6 @@ function Login() {
         localStorage.setItem("Authorization", `Bearer ${response.token}`)
         navigate('/home');
       }
-      setLoading(false)
     })
   }
 
@@ -58,6 +62,7 @@ function Login() {
       </div>
       <div className={styles.rightside}>
         <form className={styles.form}>
+          {wrong && <p>Username or password was incorrect</p>}
           <div className={styles.field}><label htmlFor="username">Username: </label><input type="text" id="username" ref={username}></input></div>
           <div className={styles.field}><label htmlFor="password">Password: </label><input type="password" id="password" ref={password}></input></div>
           {!loading && <button onClick={submitLogin}>Login</button>}
