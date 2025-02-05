@@ -38,7 +38,7 @@ export default function Requests({user, reload}){
   return(<>
     {user && <div className={styles.requests}>
       {user.receivedRequests.map(request => <div key={request.id} className={styles.request}>
-        <span>{(user.firstName || user.lastName) ? (<>{request.firstName} {request.lastName}</>):(<>{request.username}</>)}</span>
+        <span>{request.firstName} {request.lastName} <em>{request.username}</em></span>
         <Link to={`/user/${request.id}`}>Profile</Link>
         <button onClick={()=>reject(request.id)}>Reject Follow Request</button>
         <button onClick={()=>accept(request.id)}>Accept Follow Request</button>
