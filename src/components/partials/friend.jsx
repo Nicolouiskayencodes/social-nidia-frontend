@@ -8,7 +8,7 @@ export default function Friend({user}) {
   return (
     <div className={styles.friend}>
       <div className={styles.name}>
-        <span>{(user.firstName || user.lastName) ? (<>{user.firstName} {user.lastName}</>):(<>{user.username}</>)}</span>
+        <span>{user.firstName} {user.lastName} <em>{user.username}</em></span>
         {(new Date(user.lastActive) > timeout) && <span> active</span>}
       </div>
       <div className={styles.links}>
