@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import Post from "./post";
 import PropTypes from "prop-types";
 import styles from '../../styles/posts.module.css'
+import { Link } from "react-router-dom";
 
 export default function Posts({user}){
   const [posts, setPosts] = useState(null);
@@ -71,6 +72,7 @@ export default function Posts({user}){
       </form>
       {posts && <>
         {posts.map(post => <Post key={post.id} post={post} user={user} reload={childReload}/>)}
+        {(posts.length === 0) && <p>Nothing here? Add some <Link to={'/users'}>friends</Link> or join a <Link to={'/pages'}>group</Link>. Edit your <Link to={'/profile'}>profile</Link> here.</p>}
       </>}
     </div>
   )

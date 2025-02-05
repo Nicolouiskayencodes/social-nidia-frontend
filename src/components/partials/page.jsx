@@ -223,11 +223,11 @@ export default function Page({id, user}) {
         {page.members.map(member => <div key={member.id} className={styles.member}> {member.id !== user.id && <>
         <div>{member.firstName} {member.lastName} <em>{member.username}</em></div>
         {(admin && !(page.admins.some(person => person.id === member.id))) && <button onClick={()=>makeAdmin(member.id)} className={styles.admin}>Promote to admin</button>}
-        <Link to={`/user/${user.id}`}>Profile</Link>
+        <Link to={`/user/${member.id}`}>Profile</Link>
         </>}
         {member.id === user.id && <>
         <div>{member.firstName} {member.lastName} <em>{member.username}</em></div>
-        <Link to={`/user/${user.id}`}>Profile</Link>
+        <Link to={`/user/${member.id}`}>Profile</Link>
         </>}
         </div>)}
       </div>
