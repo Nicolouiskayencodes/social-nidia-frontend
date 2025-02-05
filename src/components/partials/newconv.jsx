@@ -78,6 +78,7 @@ export default function NewConv({toUser, me}){
       {users && users.map(user => <p key={user.id}>{(!recipients.includes(user) && user.id !== me.id) && <button onClick={() => addRecipient(user)} className={styles.add}><img src={user.avatar} className={styles.avatar}/> {user.displayName || user.username} +</button>}</p>)}
     </ul>}
     {!loading && <button onClick={startConversation}>Create Message</button>}
+    {loading && <p>loading...</p>}
     </div>
     
   )

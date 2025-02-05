@@ -60,6 +60,7 @@ export default function Conversation({conversationId, user}) {
     <div><div >{(messages && user)  && messages.map(message => <Message key={messages.indexOf(message)} message={message} user={user} reload={childReload}/>)}</div>
     <form onSubmit={submitMessage} className={styles.new}><input type="file" ref={photo} name="picture"></input><input type="text" ref={newMessage} name="content" className={styles.newtext}></input>
     {!sending &&<button type="submit" className="submit">Send</button>}</form>
+    {sending && <p>loading...</p>}
     </div>
     </div>
     </div>)

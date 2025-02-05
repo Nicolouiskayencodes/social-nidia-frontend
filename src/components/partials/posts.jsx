@@ -66,7 +66,8 @@ export default function Posts({user}){
         <label htmlFor="post-content">What&apos;s on your mind?</label>
         <input type="file" ref={photo} name="picture" className={styles.inputs}></input>
         <input type="text" ref={postContent} id="post-content" className={styles.inputs}></input>
-        <button onClick={createPost} className={styles.inputs2}>Post</button>
+        {!loading && <button onClick={createPost} className={styles.inputs2}>Post</button>}
+        {loading && <p>loading...</p>}
       </form>
       {posts && <>
         {posts.map(post => <Post key={post.id} post={post} user={user} reload={childReload}/>)}

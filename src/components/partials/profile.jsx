@@ -146,27 +146,29 @@ export default function Profile() {
         <div className={styles.field}>
           <label htmlFor="#avatar">Profile Photo:</label>
           <input type="file" id="avatar" ref={avatar}></input>
-          <button onClick={changeAvatar}>Change profile picture</button>
+          {!loading && <button onClick={changeAvatar}>Change profile picture</button>}
         </div>
         <div className={styles.field}>
           <label htmlFor="#firstname">First Name:</label>
           <input type="text" id="firstname" ref={firstName} defaultValue={user.firstName}></input>
           <label htmlFor="#lastname">Last Name:</label>
           <input type="text" id="lastname" ref={lastName} defaultValue={user.lastName}></input>
-          <button onClick={changeName}>Change display name</button>
+          {!loading && <button onClick={changeName}>Change display name</button>}
         </div>
         <div className={styles.field}>
           <label htmlFor="#bio">Bio</label>
           <input type="text" id="bio" ref={bio} defaultValue={user.bio}></input>
-          <button onClick={changeBio}>Change Bio</button>
+          {!loading && <button onClick={changeBio}>Change Bio</button>}
         </div>
+        {loading && <p>loading...</p>}
         <button onClick={()=>setEdit(false)}>Close edit</button>
         </div>}
       <form className={styles.create}>
         <label htmlFor="post-content">What&apos;s on your mind?</label>
         <input type="file" ref={photo} name="picture"></input>
         <input type="text" ref={postContent} id="post-content" className={styles.inputs}></input>
-        <button onClick={createPost} className={styles.inputs2}>Post</button>
+        {!loading && <button onClick={createPost} className={styles.inputs2}>Post</button>}
+        {loading && <p>loading...</p>}
       </form>
       {user.posts.map(post => <div key={post.id}>{!post.groupId && <Post post={post} user={user} reload={childReload}/>}
         </div>)}

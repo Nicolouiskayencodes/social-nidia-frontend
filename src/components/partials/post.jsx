@@ -157,7 +157,8 @@ export default function Post({post, user, reload}) {
             <form className={styles.comment}>
             <label htmlFor="comment">Leave a comment:</label>
             <input type="text" ref={newComment}></input>
-            <button onClick={submitComment}>Post comment</button>
+            {!loading && <button onClick={submitComment}>Post comment</button>}
+            {loading && <p>loading...</p>}
           </form>
           </>) : (
             <button onClick={()=>setComments(true)}>{post.comments.length} Comments</button>

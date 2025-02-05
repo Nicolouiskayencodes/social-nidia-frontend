@@ -43,7 +43,8 @@ export default function NewGroup () {
       {taken && <p>That name is already taken</p>}
       <label htmlFor="grpname">Group Name:</label>
       <input id="grpname" type="text" ref={groupName}></input>
-      <button onClick={createGroup}>Create Group</button>
+     {!loading && <button onClick={createGroup}>Create Group</button>}
+     {loading && <p>loading...</p>}
     </form>
   )
 }

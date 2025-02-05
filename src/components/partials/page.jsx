@@ -201,7 +201,8 @@ export default function Page({id, user}) {
           <label htmlFor="banner">Banner image: </label>
           <input type="file" ref={banner} id="banner" ></input>
           <button onClick={cancel} className={styles.editbuttons}>Cancel edit</button>
-          <button onClick={editGroup} className={styles.editbuttons}>Edit group</button>
+          {!loading && <button onClick={editGroup} className={styles.editbuttons}>Edit group</button>}
+          {loading && <p>loading...</p>}
         </form>)
         : (<button onClick={()=>setEdit(true)}>Edit group</button>)}
       </>}
@@ -209,7 +210,8 @@ export default function Page({id, user}) {
           <label htmlFor="post-content">What&apos;s on your mind?</label>
           <input type="file" ref={photo} name="picture"></input>
           <input type="text" ref={postContent} id="post-content"></input>
-          <button onClick={post}>Post</button>
+          {!loading && <button onClick={post}>Post</button>}
+          {loading && <p>loading...</p>}
         </form>
         {page.posts.map(post => <div key={post.id} className={styles.post}><Post key={post.id} post={post} user={user} reload={childReload} />
         {admin && <button onClick={()=>adminDelete(post.id)} className={styles.delete}>Delete Post</button>}</div>)}
