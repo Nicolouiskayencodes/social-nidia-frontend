@@ -7,6 +7,7 @@ function Login() {
   const password = useRef(null)
   const [loading, setLoading] = useState(true)
   const [wrong, setWrong] = useState(false)
+  const [submit, setSubmit] = useState(false)
   const navigate = useNavigate()
   useEffect(()=>{
     if (localStorage.getItem("Authorization")){
@@ -30,7 +31,7 @@ function Login() {
   }, [loading, navigate])
   const submitLogin = async (event) => {
     event.preventDefault();
-    setLoading(true)
+    setSubmit(true)
     await fetch("https://social-nidia.onrender.com/login", {
       mode: "cors",
       method: "POST", body: JSON.stringify({
@@ -40,9 +41,9 @@ function Login() {
       headers: { "Content-Type": "application/json" },
     })
     .then(response => {
+      setSubmit(false)
       if (response.status === 401) {
         setWrong(true)
-        setLoading(false)
       }
       return response.json()
     })
@@ -65,8 +66,9 @@ function Login() {
           {wrong && <p>Username or password was incorrect</p>}
           <div className={styles.field}><label htmlFor="username">Username: </label><input type="text" id="username" ref={username}></input></div>
           <div className={styles.field}><label htmlFor="password">Password: </label><input type="password" id="password" ref={password}></input></div>
-          {!loading && <button onClick={submitLogin}>Login</button>}
+          {(!loading && !submit) && <button onClick={submitLogin}>Login</button>}
           {loading && <p>loading...</p>}
+          {submit && <p>loading...</p>}
         </form>
         <p className={styles.register}>Not a member? <Link to={"/register"}>Register here!</Link></p>
       </div>
