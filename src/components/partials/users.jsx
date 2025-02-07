@@ -41,6 +41,16 @@ export default function Users({me, reload}) {
         reload()
       })
     }
+    const deleteUser = async(id) => {
+      fetch(`https://social-nidia.onrender.com/user/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("Authorization"),
+        },
+      }
+      )
+    }
     console.log(users)
     console.log(me)
   return(<>
@@ -52,6 +62,7 @@ export default function Users({me, reload}) {
       : (me.sentRequests.some(sent=> (sent.id === user.id))) ? (<span>Requested</span>)
     :(<button onClick={()=>follow(user.id)}>Follow</button>)}
       <Link to={`/user/${user.id}`}>Profile</Link>
+      {(me.id === 1) && <button onClick={deleteUser(user.id)}>Delete</button>}
       </div>}</div>)}
   </div>)}
   </>)
