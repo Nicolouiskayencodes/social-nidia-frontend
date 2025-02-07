@@ -62,7 +62,7 @@ export default function Users({me, reload}) {
       : (me.sentRequests.some(sent=> (sent.id === user.id))) ? (<span>Requested</span>)
     :(<button onClick={()=>follow(user.id)}>Follow</button>)}
       <Link to={`/user/${user.id}`}>Profile</Link>
-      {(me.id === 1) && <button onClick={deleteUser(user.id)}>Delete</button>}
+      {(me.id === 1) && <button onClick={()=>deleteUser(user.id)}>Delete</button>}
       </div>}</div>)}
   </div>)}
   </>)
